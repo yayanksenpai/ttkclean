@@ -127,9 +127,9 @@ async def extract_archive(path, password=""):
                     os.mkdir(extpath)
 
                 if str(path).endswith(("tar","tar.gz","tar.bz2")):
-                    cmd = f'tar -xvf "{path}" -C "{extpath}" "--warning=none" f"uncompressed_file_name"'
+                    cmd = f'tar -xvf "{path}" -C "{extpath}" "--warning=none" f"{uncompressed_file_name}"'
                 else:
-                    cmd = f'7z e -y "{path}" "-o{extpath}" "-p{password}" f"uncompressed_file_name"'
+                    cmd = f'7z e -y "{path}" "-o{extpath}" "-p{password}" f"{uncompressed_file_name}"'
                 
                 out, err, rcode = await cli_call(cmd)
                 
