@@ -110,6 +110,8 @@ def get_size(start_path = '.'):
 
 async def extract_archive(path, password=""):
     if os.path.exists(path):
+        base_dir_name = os.path.basename(input_directory)
+        uncompressed_file_name = os.path.splitext(base_dir_name)[0]
         if os.path.isfile(path):
             if str(path).endswith((".zip", "7z", "tar", "gzip2", "iso", "wim", "rar", "tar.gz","tar.bz2")):
                 # check userdata
@@ -125,9 +127,9 @@ async def extract_archive(path, password=""):
                     os.mkdir(extpath)
 
                 if str(path).endswith(("tar","tar.gz","tar.bz2")):
-                    cmd = f'tar -xvf "{path}" -C "{extpath}" --warning=none'
+                    cmd = f'tar -xvf "{path}" -C "{extpath}" "--warning=none" f"uncompressed_file_name"'
                 else:
-                    cmd = f'7z e -y "{path}" "-o{extpath}" "-p{password}"'
+                    cmd = f'7z e -y "{path}" "-o{extpath}" "-p{password}" f"uncompressed_file_name"'
                 
                 out, err, rcode = await cli_call(cmd)
                 
